@@ -10,5 +10,14 @@ import Foundation
 import ReSwift
 
 func settingsReducer(action: Action, state: SettingState?) -> SettingState {
-    return SettingState(mapWidth: 1, mapHeight: 2)
+    var state = state ?? SettingState(mapWidth: 1, mapHeight: 1)
+    switch action {
+    case let action as SettingsAction.ChangeMapWidth:
+        state.mapWidth = action.newMapWidth
+    case let action as SettingsAction.ChangeMapHeight:
+        state.mapHeight = action.newMapHeight
+    default:
+        break
+    }
+    return state
 }
