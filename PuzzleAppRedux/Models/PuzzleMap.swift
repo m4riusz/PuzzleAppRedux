@@ -17,14 +17,14 @@ struct PuzzleMap {
         case none
     }
     
-    let row: Int
-    let column: Int
+    let numberOfRows: Int
+    let numberOfColumns: Int
     fileprivate var map: [[Int]]
     
-    init(row: Int, column: Int) {
-        self.row = row
-        self.column = column
-        self.map = Array(0..<row * column).chunks(column)
+    init(numberOfRows: Int, numberOfColumns: Int) {
+        self.numberOfRows = numberOfRows
+        self.numberOfColumns = numberOfColumns
+        self.map = Array(0..<numberOfRows * numberOfColumns).chunks(numberOfColumns)
     }
     
     func printMap() {
@@ -39,18 +39,18 @@ struct PuzzleMap {
     
     mutating func shuffleMap() {
         self.map = self.map
-            .reduce([Int](), { $0 + $1})
+            .reduce([Int](), { $0 + $1 })
             .shuffled()
-            .chunks(self.column)
+            .chunks(self.numberOfColumns)
     }
     
     mutating func click(_ item: Int) {
-        guard item > 0 && item < self.row * self.column else {
+        guard item > 0 && item < self.numberOfRows * self.numberOfColumns else {
             return
         }
-        for rowIndex in 0..<self.row {
+        for rowIndex in 0..<self.numberOfRows {
             
-            for columnIndex in 0..<self.column {
+            for columnIndex in 0..<self.numberOfColumns {
                 if self.map[rowIndex][columnIndex] == item {
                     switch self.isNearEmptySpace(rowIndex: rowIndex, columnIndex: columnIndex) {
                     case .left:
@@ -78,16 +78,16 @@ struct PuzzleMap {
     }
     
     fileprivate func isNearEmptySpace(rowIndex: Int, columnIndex: Int) -> EmptySpace {
-        guard rowIndex < self.row && rowIndex >= 0 && columnIndex < self.column && columnIndex >= 0 else {
+        guard rowIndex < self.numberOfRows && rowIndex >= 0 && columnIndex < self.numberOfColumns && columnIndex >= 0 else {
             return .none
         }
-        if columnIndex + 1 < self.column && self.map[rowIndex][columnIndex + 1] == 0 {
+        if columnIndex + 1 < self.numberOfColumns && self.map[rowIndex][columnIndex + 1] == 0 {
             return .right
         }
         if columnIndex - 1 >= 0 && self.map[rowIndex][columnIndex - 1] == 0 {
             return .left
         }
-        if rowIndex + 1 < self.row && self.map[rowIndex + 1][columnIndex] == 0 {
+        if rowIndex + 1 < self.numberOfRows && self.map[rowIndex + 1][columnIndex] == 0 {
             return .bottom
         }
         if rowIndex - 1 >= 0 && self.map[rowIndex - 1][columnIndex] == 0 {

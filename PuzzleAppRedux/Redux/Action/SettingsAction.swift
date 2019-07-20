@@ -11,11 +11,11 @@ import ReSwift
 
 struct SettingsAction {
     
-    struct ChangeMapWidth: Action {
-        let newMapWidth: Int
+    struct ChangeNumberOfColumns: Action {
+        let newNumberOfColumns: Int
     }
     
-    struct ChangeMapHeight: Action {
-        let newMapHeight: Int
+    struct ChangeNumberOfRows: Action {
+        let newNumberOfRows: Int
     }
 }

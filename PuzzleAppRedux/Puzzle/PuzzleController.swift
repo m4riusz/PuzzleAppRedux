@@ -8,11 +8,12 @@
 
 import UIKit
 import ReSwift
+import SnapKit
 
 class PuzzleController: UIViewController {
     
+    fileprivate var flowLayout: FlowLayout!
     fileprivate var collectionView: UICollectionView!
-    fileprivate var shuffleButtonItem: UIBarButtonItem!
     fileprivate var sections: [[PuzzleItem]] = []
     
     override func viewDidLoad() {
@@ -20,9 +21,7 @@ class PuzzleController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        store.subscribe(self) { appState  in
-            return appState.select { $0.puzzleState }
-        }
+        store.subscribe(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -32,16 +31,22 @@ class PuzzleController: UIViewController {
     fileprivate func initialize() {
         self.view.backgroundColor = .white
         self.initNavigationBarItems()
+        self.initFlowLayout()
         self.initCollectionView()
     }
     
     fileprivate func initNavigationBarItems() {
-        self.shuffleButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.onShuffleButton))
-        self.navigationItem.rightBarButtonItem = self.shuffleButtonItem
+        let optionsButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.onOptionsButton))
+        let shuffleButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.onShuffleButton))
+        self.navigationItem.rightBarButtonItems = [optionsButtonItem, shuffleButtonItem]
+    }
+    
+    fileprivate func initFlowLayout() {
+        self.flowLayout = FlowLayout(numberOfRows: 2, numberOfColumns: 2, spacing: 4)
     }
     
     fileprivate func initCollectionView() {
-        self.collectionView = UICollectionView(UICollectionViewFlowLayout())
+        self.collectionView = UICollectionView(self.flowLayout)
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.backgroundColor = .clear
@@ -59,15 +64,21 @@ class PuzzleController: UIViewController {
     @objc fileprivate func onShuffleButton() {
         store.dispatch(PuzzleAction.Shuffle())
     }
+    
+    @objc fileprivate func onOptionsButton() {
+        self.present(UINavigationController(rootViewController: SettingsController()), animated: true)
+    }
 }
 
 extension PuzzleController: StoreSubscriber {
-    func newState(state: PuzzleState) {
+    func newState(state: AppState) {
+        self.flowLayout.numberOfRows = state.currentNumberOfRows
+        self.flowLayout.numberOfColumns = state.currentNumberOfColumns
         let item = state.map
         var items: [[PuzzleItem]] = []
-        for row in 0..<item.row {
+        for row in 0..<item.numberOfRows {
             var puzzleItems: [PuzzleItem] = []
-            for column in 0..<item.column {
+            for column in 0..<item.numberOfColumns {
                 puzzleItems.append(PuzzleItem(number: item.itemAt(row: row, column: column)))
             }
             items.append(puzzleItems)

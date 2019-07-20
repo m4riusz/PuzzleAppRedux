@@ -12,29 +12,28 @@ import ReSwift
 class SettingsController: UIViewController {
     
     fileprivate var containerView: UIView!
-    fileprivate var widthSliderLabel: UILabel!
-    fileprivate var widthSlider: UISlider!
-    fileprivate var widthSliderValueLabel: UILabel!
-    fileprivate var heightSliderLabel: UILabel!
-    fileprivate var heightSlider: UISlider!
-    fileprivate var heightSliderValueLabel: UILabel!
+    fileprivate var numberOfColumnsLabel: UILabel!
+    fileprivate var numberOfColumnsSlider: UISlider!
+    fileprivate var numberOfColumnsValueLabel: UILabel!
+    fileprivate var numberOfRowsLabel: UILabel!
+    fileprivate var nubmerOfRowsSlider: UISlider!
+    fileprivate var numberOfRowsValueLabel: UILabel!
     
     override func viewDidLoad() {
         self.title = "Settings"
         self.view.backgroundColor = .white
         self.initContainerView()
-        self.initWidthSliderLabel()
-        self.initWidthSlider()
-        self.initWidthSliderValueLabel()
-        self.initHeightSliderLabel()
-        self.initHeightSlider()
-        self.initHeightSliderValueLabel()
+        self.initNumberOfColumnsLabel()
+        self.initNumberOfColumnsSlider()
+        self.initNumberOfColumnsValueLabel()
+        self.initNumberOfRowsLabel()
+        self.initNumberOfRowsSlider()
+        self.initNumberOfRowsValueLabel()
+        self.initNavigationBarItems()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        store.subscribe(self) { appState  in
-            return appState.select { $0.settingState }
-        }
+        store.subscribe(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -55,111 +54,120 @@ class SettingsController: UIViewController {
         }
     }
     
-    fileprivate func initWidthSliderLabel() {
-        self.widthSliderLabel = UILabel()
-        self.widthSliderLabel.text = "Map width:"
-        self.widthSliderLabel.textColor = .darkGray
-        self.widthSliderLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-        self.widthSliderLabel.textAlignment = .center
-        self.containerView.addSubview(self.widthSliderLabel)
+    fileprivate func initNumberOfColumnsLabel() {
+        self.numberOfColumnsLabel = UILabel()
+        self.numberOfColumnsLabel.text = "Number of columns:"
+        self.numberOfColumnsLabel.textColor = .darkGray
+        self.numberOfColumnsLabel.font = .systemFont(ofSize: 18, weight: .semibold)
+        self.numberOfColumnsLabel.textAlignment = .center
+        self.containerView.addSubview(self.numberOfColumnsLabel)
         
-        self.widthSliderLabel.snp.makeConstraints { make in
+        self.numberOfColumnsLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
     }
-    fileprivate func initWidthSlider() {
-        self.widthSlider = UISlider()
-        self.widthSlider.addTarget(self, action: #selector(self.widthChanged), for: .valueChanged)
-        self.containerView.addSubview(self.widthSlider)
+    fileprivate func initNumberOfColumnsSlider() {
+        self.numberOfColumnsSlider = UISlider()
+        self.numberOfColumnsSlider.addTarget(self, action: #selector(self.onNumberOfColumnsChanged), for: .valueChanged)
+        self.containerView.addSubview(self.numberOfColumnsSlider)
         
-        self.widthSlider.snp.makeConstraints { [unowned self] make in
-            make.top.equalTo(self.widthSliderLabel.snp.bottom).offset(8)
+        self.numberOfColumnsSlider.snp.makeConstraints { [unowned self] make in
+            make.top.equalTo(self.numberOfColumnsLabel.snp.bottom).offset(8)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
     }
     
-    fileprivate func initWidthSliderValueLabel() {
-        self.widthSliderValueLabel = UILabel()
-        self.widthSliderValueLabel.textColor = .gray
-        self.widthSliderValueLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        self.widthSliderValueLabel.textAlignment = .center
-        self.containerView.addSubview(self.widthSliderValueLabel)
+    fileprivate func initNumberOfColumnsValueLabel() {
+        self.numberOfColumnsValueLabel = UILabel()
+        self.numberOfColumnsValueLabel.textColor = .gray
+        self.numberOfColumnsValueLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        self.numberOfColumnsValueLabel.textAlignment = .center
+        self.containerView.addSubview(self.numberOfColumnsValueLabel)
         
-        self.widthSliderValueLabel.snp.makeConstraints { [unowned self] make in
-            make.top.equalTo(self.widthSlider.snp.bottom).offset(8)
+        self.numberOfColumnsValueLabel.snp.makeConstraints { [unowned self] make in
+            make.top.equalTo(self.numberOfColumnsSlider.snp.bottom).offset(8)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
     }
     
-    fileprivate func initHeightSliderLabel() {
-        self.heightSliderLabel = UILabel()
-        self.heightSliderLabel.text = "Map height:"
-        self.heightSliderLabel.textColor = .darkGray
-        self.heightSliderLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-        self.heightSliderLabel.textAlignment = .center
-        self.containerView.addSubview(self.heightSliderLabel)
+    fileprivate func initNumberOfRowsLabel() {
+        self.numberOfRowsLabel = UILabel()
+        self.numberOfRowsLabel.text = "Number of rows:"
+        self.numberOfRowsLabel.textColor = .darkGray
+        self.numberOfRowsLabel.font = .systemFont(ofSize: 18, weight: .semibold)
+        self.numberOfRowsLabel.textAlignment = .center
+        self.containerView.addSubview(self.numberOfRowsLabel)
         
-        self.heightSliderLabel.snp.makeConstraints { [unowned self] make in
-            make.top.equalTo(self.widthSliderValueLabel.snp.bottom).offset(8)
+        self.numberOfRowsLabel.snp.makeConstraints { [unowned self] make in
+            make.top.equalTo(self.numberOfColumnsValueLabel.snp.bottom).offset(8)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
     }
     
-    fileprivate func initHeightSlider() {
-        self.heightSlider = UISlider()
-        self.heightSlider.addTarget(self, action: #selector(self.heightChanged), for: .valueChanged)
-        self.containerView.addSubview(self.heightSlider)
+    fileprivate func initNumberOfRowsSlider() {
+        self.nubmerOfRowsSlider = UISlider()
+        self.nubmerOfRowsSlider.addTarget(self, action: #selector(self.onNumberOfRowsChanged), for: .valueChanged)
+        self.containerView.addSubview(self.nubmerOfRowsSlider)
         
-        self.heightSlider.snp.makeConstraints { [unowned self] make in
-            make.top.equalTo(self.heightSliderLabel.snp.bottom).offset(8)
+        self.nubmerOfRowsSlider.snp.makeConstraints { [unowned self] make in
+            make.top.equalTo(self.numberOfRowsLabel.snp.bottom).offset(8)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
     }
     
-    fileprivate func initHeightSliderValueLabel() {
-        self.heightSliderValueLabel = UILabel()
-        self.heightSliderValueLabel.textColor = .gray
-        self.heightSliderValueLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        self.heightSliderValueLabel.textAlignment = .center
-        self.containerView.addSubview(self.heightSliderValueLabel)
+    fileprivate func initNumberOfRowsValueLabel() {
+        self.numberOfRowsValueLabel = UILabel()
+        self.numberOfRowsValueLabel.textColor = .gray
+        self.numberOfRowsValueLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        self.numberOfRowsValueLabel.textAlignment = .center
+        self.containerView.addSubview(self.numberOfRowsValueLabel)
         
-        self.heightSliderValueLabel.snp.makeConstraints { [unowned self] make in
-            make.top.equalTo(self.heightSlider.snp.bottom).offset(8)
+        self.numberOfRowsValueLabel.snp.makeConstraints { [unowned self] make in
+            make.top.equalTo(self.nubmerOfRowsSlider.snp.bottom).offset(8)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
     
-    @objc fileprivate func widthChanged() {
-        store.dispatch(SettingsAction.ChangeMapWidth(newMapWidth: Int(self.widthSlider.value)))
+    fileprivate func initNavigationBarItems() {
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.onDoneButton))
+        self.navigationItem.rightBarButtonItem = doneButton
     }
     
-    @objc fileprivate func heightChanged() {
-        store.dispatch(SettingsAction.ChangeMapHeight(newMapHeight: Int(self.heightSlider.value)))
+    @objc fileprivate func onNumberOfColumnsChanged() {
+        store.dispatch(SettingsAction.ChangeNumberOfColumns(newNumberOfColumns: Int(self.numberOfColumnsSlider.value)))
+    }
+    
+    @objc fileprivate func onNumberOfRowsChanged() {
+        store.dispatch(SettingsAction.ChangeNumberOfRows(newNumberOfRows: Int(self.nubmerOfRowsSlider.value)))
+    }
+    
+    @objc fileprivate func onDoneButton() {
+        self.dismiss(animated: true)
     }
 }
 
 extension SettingsController: StoreSubscriber {
     
-    func newState(state: SettingState) {
-        self.widthSlider.minimumValue = Float(state.minWidth)
-        self.widthSlider.maximumValue = Float(state.maxWidth)
-        self.widthSliderValueLabel.text = "\(state.currentWidth)"
+    func newState(state: AppState) {
+        self.numberOfColumnsSlider.minimumValue = Float(state.minNumberOfColumns)
+        self.numberOfColumnsSlider.maximumValue = Float(state.maxNumberOfColumns)
+        self.numberOfColumnsValueLabel.text = "\(state.currentNumberOfColumns)"
         
-        self.heightSlider.minimumValue = Float(state.minHeight)
-        self.heightSlider.maximumValue = Float(state.maxHeight)
-        self.heightSliderValueLabel.text = "\(state.currentHeight)"
+        self.nubmerOfRowsSlider.minimumValue = Float(state.minNumberOfRows)
+        self.nubmerOfRowsSlider.maximumValue = Float(state.maxNumberOfRows)
+        self.numberOfRowsValueLabel.text = "\(state.currentNumberOfRows)"
         
         UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.widthSlider.setValue(Float(state.currentWidth), animated: true)
-            self?.heightSlider.setValue(Float(state.currentHeight), animated: true)
+            self?.numberOfColumnsSlider.setValue(Float(state.currentNumberOfColumns), animated: true)
+            self?.nubmerOfRowsSlider.setValue(Float(state.currentNumberOfRows), animated: true)
         }
     }
 }

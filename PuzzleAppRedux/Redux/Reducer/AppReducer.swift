@@ -10,8 +10,29 @@ import Foundation
 import ReSwift
 
 func appReducer(action: Action, state: AppState?) -> AppState {
-    return AppState(
-        settingState: settingsReducer(action: action, state: state?.settingState),
-        puzzleState: puzzleReducer(action: action, state: state?.puzzleState)
-    )
+    var state = state ?? AppState(minNumberOfColumns: 2,
+                                  currentNumberOfColumns: 2,
+                                  maxNumberOfColumns: 10,
+                                  minNumberOfRows: 2,
+                                  currentNumberOfRows: 2,
+                                  maxNumberOfRows: 10,
+                                  map: PuzzleMap(numberOfRows: 2, numberOfColumns: 2))
+    
+    switch action {
+    case let action as SettingsAction.ChangeNumberOfColumns:
+        state.currentNumberOfColumns = action.newNumberOfColumns
+        state.map = PuzzleMap(numberOfRows: state.currentNumberOfRows,
+                              numberOfColumns: state.currentNumberOfColumns)
+    case let action as SettingsAction.ChangeNumberOfRows:
+        state.currentNumberOfRows = action.newNumberOfRows
+        state.map = PuzzleMap(numberOfRows: state.currentNumberOfRows,
+                              numberOfColumns: state.currentNumberOfColumns)
+    case let action as PuzzleAction.MoveItem:
+        state.map.click(action.item)
+    case _ as PuzzleAction.Shuffle:
+        state.map.shuffleMap()
+    default:
+        break
+    }
+    return state
 }

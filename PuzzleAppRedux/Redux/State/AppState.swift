@@ -10,6 +10,12 @@ import Foundation
 import ReSwift
 
 struct AppState: StateType {
-    let settingState: SettingState
-    let puzzleState: PuzzleState
+    var minNumberOfColumns: Int
+    var currentNumberOfColumns: Int
+    var maxNumberOfColumns: Int
+    var minNumberOfRows: Int
+    var currentNumberOfRows: Int
+    var maxNumberOfRows: Int
+    
+    var map: PuzzleMap
 }
