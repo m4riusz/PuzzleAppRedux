@@ -22,6 +22,9 @@
 		6F59D37F22E0EF1700BFBF88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F59D37D22E0EF1700BFBF88 /* LaunchScreen.storyboard */; };
 		6F59D38A22E0EF1700BFBF88 /* PuzzleAppReduxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F59D38922E0EF1700BFBF88 /* PuzzleAppReduxTests.swift */; };
 		6F59D39522E0EF1700BFBF88 /* PuzzleAppReduxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F59D39422E0EF1700BFBF88 /* PuzzleAppReduxUITests.swift */; };
+		6FCDE04B22E2FBB500321BEE /* PuzzleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCDE04A22E2FBB500321BEE /* PuzzleController.swift */; };
+		6FCDE04D22E2FBFB00321BEE /* PuzzleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCDE04C22E2FBFB00321BEE /* PuzzleMap.swift */; };
+		6FCDE05022E306B800321BEE /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCDE04F22E306B800321BEE /* ArrayExtension.swift */; };
 		FE617A2F286E6AEEC53DCA41 /* Pods_PuzzleAppRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B0874BE7859967C3999C62 /* Pods_PuzzleAppRedux.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +68,9 @@
 		6F59D39022E0EF1700BFBF88 /* PuzzleAppReduxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PuzzleAppReduxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F59D39422E0EF1700BFBF88 /* PuzzleAppReduxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleAppReduxUITests.swift; sourceTree = "<group>"; };
 		6F59D39622E0EF1800BFBF88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6FCDE04A22E2FBB500321BEE /* PuzzleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleController.swift; sourceTree = "<group>"; };
+		6FCDE04C22E2FBFB00321BEE /* PuzzleMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleMap.swift; sourceTree = "<group>"; };
+		6FCDE04F22E306B800321BEE /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		7D845AA954D568E7157579B5 /* Pods-PuzzleAppReduxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuzzleAppReduxTests.debug.xcconfig"; path = "Target Support Files/Pods-PuzzleAppReduxTests/Pods-PuzzleAppReduxTests.debug.xcconfig"; sourceTree = "<group>"; };
 		80B0874BE7859967C3999C62 /* Pods_PuzzleAppRedux.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PuzzleAppRedux.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74D8E9745CF518BB64CCF04 /* Pods-PuzzleAppReduxUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PuzzleAppReduxUITests.debug.xcconfig"; path = "Target Support Files/Pods-PuzzleAppReduxUITests/Pods-PuzzleAppReduxUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +121,8 @@
 		6F301CF722E0EFF4007E19A5 /* Puzzle */ = {
 			isa = PBXGroup;
 			children = (
+				6FCDE04A22E2FBB500321BEE /* PuzzleController.swift */,
+				6FCDE04C22E2FBFB00321BEE /* PuzzleMap.swift */,
 			);
 			path = Puzzle;
 			sourceTree = "<group>";
@@ -194,6 +202,7 @@
 		6F59D37322E0EF1600BFBF88 /* PuzzleAppRedux */ = {
 			isa = PBXGroup;
 			children = (
+				6FCDE04E22E306A700321BEE /* Utils */,
 				6F301D0C22E0F652007E19A5 /* Start */,
 				6F301CF922E0F026007E19A5 /* Settings */,
 				6F301CF722E0EFF4007E19A5 /* Puzzle */,
@@ -222,6 +231,14 @@
 				6F59D39622E0EF1800BFBF88 /* Info.plist */,
 			);
 			path = PuzzleAppReduxUITests;
+			sourceTree = "<group>";
+		};
+		6FCDE04E22E306A700321BEE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6FCDE04F22E306B800321BEE /* ArrayExtension.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		AAF70633B4B3CA7EFB0757AD /* Frameworks */ = {
@@ -470,10 +487,13 @@
 				6F301CFE22E0F09F007E19A5 /* AppState.swift in Sources */,
 				6F301CFB22E0F031007E19A5 /* SettingsController.swift in Sources */,
 				6F301D0E22E0F662007E19A5 /* StartController.swift in Sources */,
+				6FCDE05022E306B800321BEE /* ArrayExtension.swift in Sources */,
 				6F301D0922E0F2E1007E19A5 /* SettingsReducer.swift in Sources */,
 				6F301D0722E0F278007E19A5 /* SettingState.swift in Sources */,
+				6FCDE04D22E2FBFB00321BEE /* PuzzleMap.swift in Sources */,
 				6F59D37522E0EF1600BFBF88 /* AppDelegate.swift in Sources */,
 				6F301D0222E0F0BE007E19A5 /* AppStore.swift in Sources */,
+				6FCDE04B22E2FBB500321BEE /* PuzzleController.swift in Sources */,
 				6F301D0B22E0F48D007E19A5 /* SettingsAction.swift in Sources */,
 				6F301D0422E0F13B007E19A5 /* AppReducer.swift in Sources */,
 			);
