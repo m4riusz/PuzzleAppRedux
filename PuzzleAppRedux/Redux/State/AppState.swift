@@ -11,4 +11,5 @@ import ReSwift
 
 struct AppState: StateType {
     let settingState: SettingState
+    let puzzleState: PuzzleState
 }

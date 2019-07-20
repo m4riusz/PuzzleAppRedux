@@ -64,6 +64,7 @@ class StartController: UIViewController {
         self.startNewGameButton = UIButton()
         self.startNewGameButton.setTitle("New game", for: .normal)
         self.startNewGameButton.setTitleColor(self.view.tintColor, for: .normal)
+        self.startNewGameButton.addTarget(self, action: #selector(self.onStartButton), for: .touchUpInside)
         self.containerView.addSubview(self.startNewGameButton)
         
         self.startNewGameButton.snp.makeConstraints { [unowned self] make in
@@ -102,6 +103,10 @@ class StartController: UIViewController {
             make.bottom.equalToSuperview().offset(-8)
             make.centerX.equalToSuperview()
         }
+    }
+    
+    @objc fileprivate func onStartButton() {
+        self.navigationController?.pushViewController(PuzzleController(), animated: true)
     }
     
     @objc fileprivate func onSettingsButton() {

@@ -8,9 +8,6 @@ target 'PuzzleAppRedux' do
   # Pods for PuzzleAppRedux
   pod 'ReSwift'
   pod 'SnapKit'
-  pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'RxDataSources'
 
   target 'PuzzleAppReduxTests' do
     inherit! :search_paths

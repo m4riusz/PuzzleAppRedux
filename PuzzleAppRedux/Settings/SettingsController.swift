@@ -161,6 +161,5 @@ extension SettingsController: StoreSubscriber {
             self?.widthSlider.setValue(Float(state.currentWidth), animated: true)
             self?.heightSlider.setValue(Float(state.currentHeight), animated: true)
         }
-        
     }
 }

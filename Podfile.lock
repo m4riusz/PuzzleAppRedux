@@ -1,44 +1,20 @@
 PODS:
-  - Differentiator (4.0.1)
   - ReSwift (5.0.0)
-  - RxCocoa (5.0.0):
-    - RxRelay (~> 5)
-    - RxSwift (~> 5)
-  - RxDataSources (4.0.1):
-    - Differentiator (~> 4.0)
-    - RxCocoa (~> 5.0)
-    - RxSwift (~> 5.0)
-  - RxRelay (5.0.0):
-    - RxSwift (~> 5)
-  - RxSwift (5.0.0)
   - SnapKit (5.0.0)
 
 DEPENDENCIES:
   - ReSwift
-  - RxCocoa
-  - RxDataSources
-  - RxSwift
   - SnapKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Differentiator
     - ReSwift
-    - RxCocoa
-    - RxDataSources
-    - RxRelay
-    - RxSwift
     - SnapKit
 
 SPEC CHECKSUMS:
-  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   ReSwift: 628f1a9b3ee52e3b3ca2a644435472fd77afafe1
-  RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
-  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
-  RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
-  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
-PODFILE CHECKSUM: 243361563c35221a6d23a02f63eae3f61f7d70dd
+PODFILE CHECKSUM: 626e9339a935474081a2df5b914ea5df925ac306
 
 COCOAPODS: 1.7.3

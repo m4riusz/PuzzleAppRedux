@@ -33,7 +33,11 @@ struct PuzzleMap {
         }
     }
     
-    fileprivate mutating func shuffleMap() {
+    func itemAt(row: Int, column: Int) -> Int {
+        return self.map[row][column]
+    }
+    
+    mutating func shuffleMap() {
         self.map = self.map
             .reduce([Int](), { $0 + $1})
             .shuffled()

@@ -11,6 +11,7 @@ import ReSwift
 
 func appReducer(action: Action, state: AppState?) -> AppState {
     return AppState(
-        settingState: settingsReducer(action: action, state: state?.settingState)
+        settingState: settingsReducer(action: action, state: state?.settingState),
+        puzzleState: puzzleReducer(action: action, state: state?.puzzleState)
     )
 }
