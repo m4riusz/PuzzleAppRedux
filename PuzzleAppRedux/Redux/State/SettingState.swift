@@ -10,6 +10,10 @@ import Foundation
 import ReSwift
 
 struct SettingState: StateType {
-    var mapWidth: Int
-    var mapHeight: Int
+    var minWidth: Int
+    var currentWidth: Int
+    var maxWidth: Int
+    var minHeight: Int
+    var currentHeight: Int
+    var maxHeight: Int
 }

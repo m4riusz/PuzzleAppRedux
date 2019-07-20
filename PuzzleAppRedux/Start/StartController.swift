@@ -63,7 +63,7 @@ class StartController: UIViewController {
     fileprivate func initStartNewGameButton() {
         self.startNewGameButton = UIButton()
         self.startNewGameButton.setTitle("New game", for: .normal)
-        self.startNewGameButton.setTitleColor(.orange, for: .normal)
+        self.startNewGameButton.setTitleColor(self.view.tintColor, for: .normal)
         self.containerView.addSubview(self.startNewGameButton)
         
         self.startNewGameButton.snp.makeConstraints { [unowned self] make in
@@ -77,7 +77,7 @@ class StartController: UIViewController {
     fileprivate func initResumeGameButton() {
         self.resumeGameButton = UIButton()
         self.resumeGameButton.setTitle("Resume game", for: .normal)
-        self.resumeGameButton.setTitleColor(.orange, for: .normal)
+        self.resumeGameButton.setTitleColor(self.view.tintColor, for: .normal)
         self.containerView.addSubview(self.resumeGameButton)
         
         self.resumeGameButton.snp.makeConstraints { [unowned self] make in
@@ -91,7 +91,7 @@ class StartController: UIViewController {
     fileprivate func initSettingsButton() {
         self.settingsButton = UIButton()
         self.settingsButton.setTitle("Settings", for: .normal)
-        self.settingsButton.setTitleColor(.orange, for: .normal)
+        self.settingsButton.setTitleColor(self.view.tintColor, for: .normal)
         self.settingsButton.addTarget(self, action: #selector(onSettingsButton), for: .touchUpInside)
         self.containerView.addSubview(self.settingsButton)
         
