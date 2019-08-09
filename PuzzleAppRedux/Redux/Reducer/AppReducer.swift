@@ -11,12 +11,12 @@ import ReSwift
 
 func appReducer(action: Action, state: AppState?) -> AppState {
     var state = state ?? AppState(minNumberOfColumns: 2,
-                                  currentNumberOfColumns: 2,
+                                  currentNumberOfColumns: 5,
                                   maxNumberOfColumns: 10,
                                   minNumberOfRows: 2,
-                                  currentNumberOfRows: 2,
+                                  currentNumberOfRows: 5,
                                   maxNumberOfRows: 10,
-                                  map: PuzzleMap(numberOfRows: 2, numberOfColumns: 2))
+                                  map: PuzzleMap(numberOfRows: 5, numberOfColumns: 5))
     
     switch action {
     case let action as SettingsAction.ChangeNumberOfColumns:

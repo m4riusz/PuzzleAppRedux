@@ -21,6 +21,8 @@ class FlowLayout: UICollectionViewFlowLayout {
         
         self.minimumInteritemSpacing = spacing
         self.minimumLineSpacing = spacing
+        self.headerReferenceSize = .zero
+        self.footerReferenceSize = .zero
         self.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
     }
     
@@ -35,8 +37,8 @@ class FlowLayout: UICollectionViewFlowLayout {
             return
         }
         let size = collectionView.bounds
-        let marginsAndInsetsColumns = self.sectionInset.left + self.sectionInset.right + self.minimumInteritemSpacing * CGFloat(self.numberOfColumns - 1)
-        let marginsAndInsetsRows = self.sectionInset.top + self.sectionInset.bottom + self.minimumLineSpacing * CGFloat(self.numberOfRows - 1)
+        let marginsAndInsetsColumns = self.sectionInset.left + self.sectionInset.right + self.minimumInteritemSpacing * CGFloat(self.numberOfColumns + 2)
+        let marginsAndInsetsRows = self.sectionInset.top + self.sectionInset.bottom + self.minimumLineSpacing * CGFloat(self.numberOfRows + 2)
         let itemWidth = (size.width - marginsAndInsetsColumns) / CGFloat(self.numberOfColumns)
         let itemHeight = (size.height - marginsAndInsetsRows) / CGFloat(self.numberOfRows)
         self.itemSize = CGSize(width: itemWidth, height: itemHeight)

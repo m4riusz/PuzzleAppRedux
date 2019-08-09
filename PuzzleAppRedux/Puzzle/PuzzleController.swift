@@ -49,6 +49,7 @@ class PuzzleController: UIViewController {
         self.collectionView = UICollectionView(self.flowLayout)
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
+        self.collectionView.isScrollEnabled = false
         self.collectionView.backgroundColor = .clear
         self.collectionView.registerCell(PuzzleCell.self)
         self.view.addSubview(self.collectionView)
