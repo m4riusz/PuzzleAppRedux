@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct PuzzleMap {
     enum EmptySpace {
@@ -20,11 +21,13 @@ struct PuzzleMap {
     let numberOfRows: Int
     let numberOfColumns: Int
     fileprivate var map: [[Int]]
+    fileprivate var images: [[UIImage]] = []
     
     init(numberOfRows: Int, numberOfColumns: Int) {
         self.numberOfRows = numberOfRows
         self.numberOfColumns = numberOfColumns
         self.map = Array(0..<numberOfRows * numberOfColumns).chunks(numberOfColumns)
+        self.setImage(.image(.demoImage))
     }
     
     func printMap() {
@@ -35,6 +38,30 @@ struct PuzzleMap {
     
     func itemAt(row: Int, column: Int) -> Int {
         return self.map[row][column]
+    }
+    
+    func imageAt(row: Int, column: Int) -> UIImage {
+        return self.images[row][column]
+    }
+    
+    mutating func setImage(_ image: UIImage) {
+        let size = image.size
+        let imageWidth = size.width / CGFloat(self.numberOfColumns)
+        let imageHeight = size.height / CGFloat(self.numberOfRows)
+        let scale = image.scale
+        
+        self.images = []
+        for rowIndex in 0..<self.numberOfRows {
+            var columnImages: [UIImage] = []
+            for columnIndex in 0..<self.numberOfColumns {
+                let rect = CGRect(x: imageWidth * CGFloat(columnIndex) * scale,
+                                  y: imageHeight * CGFloat(rowIndex) * scale,
+                                  width: imageWidth * scale,
+                                  height: imageHeight * scale)
+                columnImages.append(UIImage(cgImage: image.cgImage!.cropping(to: rect)!))
+            }
+            self.images.append(columnImages)
+        }
     }
     
     mutating func shuffleMap() {
@@ -49,7 +76,6 @@ struct PuzzleMap {
             return
         }
         for rowIndex in 0..<self.numberOfRows {
-            
             for columnIndex in 0..<self.numberOfColumns {
                 if self.map[rowIndex][columnIndex] == item {
                     switch self.isNearEmptySpace(rowIndex: rowIndex, columnIndex: columnIndex) {

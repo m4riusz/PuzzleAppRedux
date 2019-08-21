@@ -80,7 +80,8 @@ extension PuzzleController: StoreSubscriber {
         for row in 0..<item.numberOfRows {
             var puzzleItems: [PuzzleItem] = []
             for column in 0..<item.numberOfColumns {
-                puzzleItems.append(PuzzleItem(number: item.itemAt(row: row, column: column)))
+                puzzleItems.append(PuzzleItem(number: item.itemAt(row: row, column: column),
+                                              image: item.imageAt(row: row, column: column)))
             }
             items.append(puzzleItems)
         }

@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import UIKit
 
 struct PuzzleItem {
     let number: Int
+    let image: UIImage
 }
