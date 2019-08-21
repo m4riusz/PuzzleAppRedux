@@ -20,8 +20,8 @@ struct PuzzleMap {
     
     let numberOfRows: Int
     let numberOfColumns: Int
-    fileprivate var map: [[Int]]
-    fileprivate var images: [[UIImage]] = []
+    private var map: [[Int]]
+    private var images: [[UIImage]] = []
     
     init(numberOfRows: Int, numberOfColumns: Int) {
         self.numberOfRows = numberOfRows
@@ -41,7 +41,11 @@ struct PuzzleMap {
     }
     
     func imageAt(row: Int, column: Int) -> UIImage {
-        return self.images[row][column]
+        let mapItemNumber = self.itemAt(row: row, column: column)
+        guard mapItemNumber != 0 else {
+            return UIImage()
+        }
+        return self.images.reduce([UIImage](), { $0 + $1 })[mapItemNumber]
     }
     
     mutating func setImage(_ image: UIImage) {
@@ -82,28 +86,30 @@ struct PuzzleMap {
                     case .left:
                         self.map[rowIndex][columnIndex] = 0
                         self.map[rowIndex][columnIndex - 1] = item
-                        return
                     case .right:
                         self.map[rowIndex][columnIndex] = 0
                         self.map[rowIndex][columnIndex + 1] = item
-                        return
                     case .top:
                         self.map[rowIndex][columnIndex] = 0
                         self.map[rowIndex - 1][columnIndex] = item
-                        return
                     case .bottom:
                         self.map[rowIndex][columnIndex] = 0
                         self.map[rowIndex + 1][columnIndex] = item
-                        return
                     case .none:
                         return
                     }
+                    guard self.isSolved() else {
+                        return
+                    }
+                    print("You have won the game!")
+                    return
                 }
             }
         }
+        
     }
     
-    fileprivate func isNearEmptySpace(rowIndex: Int, columnIndex: Int) -> EmptySpace {
+    private func isNearEmptySpace(rowIndex: Int, columnIndex: Int) -> EmptySpace {
         guard rowIndex < self.numberOfRows && rowIndex >= 0 && columnIndex < self.numberOfColumns && columnIndex >= 0 else {
             return .none
         }
@@ -120,5 +126,9 @@ struct PuzzleMap {
             return .top
         }
         return .none
+    }
+    
+    private func isSolved() -> Bool {
+        return self.map.reduce([Int](), { $0 + $1 }) == (0..<self.numberOfRows * self.numberOfColumns).map { $0 }
     }
 }
