@@ -75,18 +75,7 @@ extension PuzzleController: StoreSubscriber {
     func newState(state: AppState) {
         self.flowLayout.numberOfRows = state.currentNumberOfRows
         self.flowLayout.numberOfColumns = state.currentNumberOfColumns
-        let item = state.map
-        var items: [[PuzzleItem]] = []
-        for row in 0..<item.numberOfRows {
-            var puzzleItems: [PuzzleItem] = []
-            for column in 0..<item.numberOfColumns {
-                puzzleItems.append(PuzzleItem(number: item.itemAt(row: row, column: column),
-                                              image: item.imageAt(row: row, column: column)))
-            }
-            items.append(puzzleItems)
-        }
-        
-        self.sections = items
+        self.sections = state.map.toPuzzleItem()
         self.collectionView.reloadData()
     }
 }

@@ -48,6 +48,19 @@ struct PuzzleMap {
         return self.images.reduce([UIImage](), { $0 + $1 })[mapItemNumber]
     }
     
+    func toPuzzleItem() -> [[PuzzleItem]] {
+        var items: [[PuzzleItem]] = []
+        for row in 0..<self.numberOfRows {
+            var puzzleItems: [PuzzleItem] = []
+            for column in 0..<self.numberOfColumns {
+                puzzleItems.append(PuzzleItem(number: self.itemAt(row: row, column: column),
+                                              image: self.imageAt(row: row, column: column)))
+            }
+            items.append(puzzleItems)
+        }
+        return items
+    }
+    
     mutating func setImage(_ image: UIImage) {
         let size = image.size
         let imageWidth = size.width / CGFloat(self.numberOfColumns)
@@ -102,6 +115,7 @@ struct PuzzleMap {
                         return
                     }
                     print("You have won the game!")
+                    self.shuffleMap()
                     return
                 }
             }
